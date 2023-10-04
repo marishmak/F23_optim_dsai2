@@ -1,4 +1,4 @@
-﻿/*
+/*
 example:
 1
 3 4
@@ -52,7 +52,7 @@ example 2:
 
 using namespace std;
 
-void printMatrix(vector <vector <double>>& matrix, vector<int> &variables) { 
+void printMatrix(vector <vector <double>>& matrix, vector<int>& variables) {
     // печатает таблицу симплекс метода с 5 знаками после запятой, выделяя под каждый элемент таблицы по 10 символов
     int n = matrix.size();
     int m = matrix[0].size();
@@ -71,11 +71,11 @@ void printMatrix(vector <vector <double>>& matrix, vector<int> &variables) {
 double getWithAccuracy(double n, long long accuracy) {
     // accuracy - это степень 10. Чтобы обнулить все знаки, например, после второго, нужно исходное число умножить на 10^2 записать значение в целочисленную переменную.
     // Потом, чтобы вернуться к исходной мантиссе, делим число на 10^2
-    long long temp = n * accuracy;
+    long long temp = round(n * accuracy);
     return double(temp) / accuracy;
 }
 
-vector <vector <double>> getMatrix(long long &accuracy) {
+vector <vector <double>> getMatrix(long long& accuracy) {
     bool minMaxFlag;
     cout << "Enter \"0\" for minimization or \"1\" for maximization\n";
     cin >> minMaxFlag;
@@ -155,7 +155,7 @@ map<int, double> simplex(vector<vector<double>> simplexMatrix, long long accurac
         variables[i - n + m] = i;
     }
     //selecting var to proceed
-    while(true) {
+    while (true) {
         printMatrix(simplexMatrix, variables);
         cout << '\n';
         double minVal = simplexMatrix[0][0]; // Assume the first element is the minimum
