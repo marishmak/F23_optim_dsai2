@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void printMatrix(vector<vector<double>> &matrix, vector<int> &variables) {
+void printMatrix(vector<vector<double>>& matrix, vector<int>& variables) {
     // outputs simplex tableu with 5 decimal places
     int n = matrix.size();
     int m = matrix[0].size();
@@ -29,13 +29,13 @@ double getWithAccuracy(double n, long long accuracy) {
     return double(temp) / accuracy;
 }
 
-vector<vector<double>> getMatrix(long long &accuracy) {
+vector<vector<double>> getMatrix(long long& accuracy) {
     bool minMaxFlag;
     cout << "Enter \"0\" for minimization or \"1\" for maximization\n";
     cin >> minMaxFlag;
 
     int n, m;  // n - number of constraints (number of rows in A); m - number of
-               // varibles (number of colums in A)
+    // varibles (number of colums in A)
     cout << "Enter number of constrains in linear programming problem\n";
     cin >> n;
     cout << "Enter number of variables in linear programming problem\n";
@@ -43,12 +43,12 @@ vector<vector<double>> getMatrix(long long &accuracy) {
 
     vector<double> c(m);
     cout << "Enter vector c, such that c^t*X (X is vector of all variables) is "
-            "the objective function ";
+        "the objective function\n";
 
     for (int i = 0; i < m; i++) {
         cin >> c[i];
         c[i] *= (minMaxFlag ? 1 : -1);  // change the objective function
-                                        // according to the problem (max/min)
+        // according to the problem (max/min)
     }
     cout << "Enter matrix A, such that AX <= b\n";
     vector<vector<double>> a(n);
@@ -63,10 +63,14 @@ vector<vector<double>> getMatrix(long long &accuracy) {
     vector<double> b(n);
     for (int i = 0; i < n; i++) {
         cin >> b[i];
+        if (b[i] < 0) {
+            cout << "Method is not applicable (all elements of b should be positive)";
+            exit(0);
+        }
     }
 
     cout << "Enter the maximum number of decimal places after which everything "
-            "will be reset to zero (0 - 10).\n";
+        "will be reset to zero (0 - 10).\n";
     cin >> accuracy;
     accuracy = pow(10, accuracy);
 
@@ -86,7 +90,8 @@ vector<vector<double>> getMatrix(long long &accuracy) {
         for (int j = m; j < n + m + 1; j++) {
             if (i == j - m + 1) {
                 matrix[i][j] = 1;
-            } else {
+            }
+            else {
                 matrix[i][j] = 0;
             }
         }
@@ -98,7 +103,7 @@ vector<vector<double>> getMatrix(long long &accuracy) {
 }
 
 map<int, double> simplex(vector<vector<double>> simplexMatrix,
-                         long long accuracy) {
+    long long accuracy) {
     cout << "The iterations of the algorithm look like this:\n";
     int n = simplexMatrix[0].size();
     int m = simplexMatrix.size();
@@ -131,8 +136,8 @@ map<int, double> simplex(vector<vector<double>> simplexMatrix,
         int minRatioPos = -1;
         for (int j = 1; j < m; j++) {
             if ((simplexMatrix[j][n - 1] / simplexMatrix[j][minPos] <
-                     minRatio ||
-                 minRatioPos == -1) &&
+                minRatio ||
+                minRatioPos == -1) &&
                 (simplexMatrix[j][n - 1] / simplexMatrix[j][minPos]) > 0) {
                 minRatio = simplexMatrix[j][n - 1] / simplexMatrix[j][minPos];
                 minRatioPos = j;
@@ -141,7 +146,8 @@ map<int, double> simplex(vector<vector<double>> simplexMatrix,
         }
         if (minRatio == -1) {
             return {};
-        } else {
+        }
+        else {
             variables[minRatioPos] = minPos + 1;
         }
         // calculating new pivot row
@@ -156,7 +162,7 @@ map<int, double> simplex(vector<vector<double>> simplexMatrix,
                 if (b != minRatioPos) {
                     simplexMatrix[b][f] = getWithAccuracy(
                         simplexMatrix[b][f] -
-                            factor * simplexMatrix[minRatioPos][f],
+                        factor * simplexMatrix[minRatioPos][f],
                         accuracy);
                 }
             }
@@ -177,7 +183,7 @@ int main() {
     cout << "The result is: " << ans[0] << '\n';
     cout << "It can be obtained with the following values of variables: \n";
     for (int i = 1; i < simplexMatrix[0].size() - simplexMatrix.size() + 1;
-         i++) {
+        i++) {
         cout << "x" << i << " = " << ans[i] << '\n';
     }
     return 0;
