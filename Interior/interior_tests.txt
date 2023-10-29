@@ -106,7 +106,7 @@ Expected output: F=282/11 with (x1, x2, x3, x4, x5, x6) = (6/11,90/11,0,0,254/11
 
 Output of a program: 
 
-The problem does not have solution!
+Bad initial point
 
 -----------------------------------------------------------------
                                  5
