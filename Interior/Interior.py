@@ -36,7 +36,6 @@ def get_matrix():
 
 
 def simplex(simplex_matrix, accuracy):
-    # print("The iterations of the algorithm look like this:")
     n = len(simplex_matrix[0])
     m = len(simplex_matrix)
     variables = [0] * m
