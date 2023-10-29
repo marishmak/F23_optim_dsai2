@@ -110,7 +110,7 @@ def interior_point():
             print("Singular matrix error(try take bigger approximation parameter (ex: 0.001)):", e)
             sys.exit(0)
         cp = np.dot(P, cc)
-        if len(np.min(cp[cp < 0]) == 0:
+        if len(cp[cp < 0]) == 0:
             print("Bad initial point")
             sys.exit(0)
         v = abs(np.min(cp[cp < 0]))
