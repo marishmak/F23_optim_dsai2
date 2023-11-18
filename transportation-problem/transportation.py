@@ -2,9 +2,9 @@ import numpy as np
 import math
 import copy
 import warnings
-warnings.filterwarnings("ignore", category=RuntimeWarning)
+warnings.filterwarnings("ignore", category=RuntimeWarning) # surpressing All-NaN axis encountered which is fine for our purposes. 
 
-n = 3  # amount of row of table
+n = 3  # amount of rows of table
 m = 4  # amount of columns of table
 
 
@@ -37,10 +37,15 @@ class Table:
                         raise MethodException()
 
     def print(self):
-        for i in range(n):
-            print(
-                ' '.join(list(map(str, self.cost[i]))) + ' ' + str(self.supply[i]) + '\n')
-        print(' '.join(list(map(str, self.demand))) + "\n")
+        print("--- Parameter Table of Transportation Problem ---")
+        for i in range(self.__n):
+            for j in range(self.__m):
+                print("{:<10}".format(self.cost[i][j]), end=' ')
+            print("| {:<10}".format(self.supply[i]))
+        print("-" * 10 * self.__m)
+        for j in range(self.__m):
+            print("{:<10}".format(self.demand[j]), end=' ')
+        print()
     
     def update(self):
         for i, s in enumerate(self.supply):
@@ -90,7 +95,6 @@ def vogel_method(_table):
     table = copy.deepcopy(_table)
     res = 0
     x0 = []
-    k = 0
     while sum(table.supply) > 0 or sum(table.demand) > 0:
         table_cost_transposed = np.array(table.cost).T.tolist()
         row_difs = list(map(get_delta, table.cost))
@@ -111,8 +115,6 @@ def vogel_method(_table):
         table.supply[i] -= val
         table.demand[j] -= val
         table.update()
-        
-        k += 1
 
     return res, x0
 
@@ -149,15 +151,11 @@ def print_result(res):
     print(*(f"x{i}{j} = {e}" for i, j, e in x0), sep = ', ')
 
 if __name__ == '__main__':
-    # supply_coefs = [7, 9, 18]
+    # supply_coef = [7, 9, 18]
     # cost_matrix = [[19, 30, 50, 10],
     #                [70, 30, 40, 60],
     #                [40, 8, 70, 20]]
-    # demand_coefs = [5, 8, 7, 14]
-    # Correct output: 
-    # result: 1015, basic solution: x00 = 19, x10 = 30, x11 = 30, x21 = 40, x22 = 70, x32 = 20
-    # result: 807, basic solution: x00 = 5, x01 = 2, x11 = 2, x12 = 7, x21 = 4, x23 = 14
-    # result: 779, basic solution: x00 = 5, x03 = 2, x12 = 7, x13 = 2, x21 = 8, x23 = 10
+    # demand_coef = [5, 8, 7, 14]
 
     print("Enter a vector of supply coefficients, 3 numbers devided by space:")
     supply_coef = list(map(int, input().split()))
@@ -170,9 +168,15 @@ if __name__ == '__main__':
 
     try:
         table = Table(supply_coef, cost_matrix, demand_coef)
+        table.print()
+
+        print("\nNorth-west method")
         print_result(north_west_method(table))
-        print_result(russel_method(table))
+        print("\nVogel's method")
         print_result(vogel_method(table))
+        print("\nRussel's method")
+        print_result(russel_method(table))
+
 
     except BalanceProblem as e:
         print(e)
