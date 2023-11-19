@@ -15,7 +15,7 @@ class MethodException(Exception):
 
 class BalanceProblem(Exception):
     def __str__(self):
-        return "The problem is not balanced"
+        return "The problem is not balanced!"
 
 
 class Table:
@@ -37,7 +37,7 @@ class Table:
                         raise MethodException()
 
     def print(self):
-        print("Parameter Table of the Transportation Problem")
+        print("\nParameter Table of the Transportation Problem")
         for i in range(self.__n):
             for j in range(self.__m):
                 print("{:<10}".format(self.cost[i][j]), end=' ')
@@ -166,11 +166,11 @@ def print_result(res):
 
 if __name__ == '__main__':
     # EXAMPLE
-    # supply_coef = [7, 9, 18]
-    # cost_matrix = [[19, 30, 50, 10],
-    #                [70, 30, 40, 60],
-    #                [40, 8, 70, 20]]
-    # demand_coef = [5, 8, 7, 14]
+    # 140 180 60
+    # 2 3 4 2
+    # 8 4 1 4
+    # 9 7 3 7
+    # 60 70 120 130
 
     # input
     print("Enter a vector of supply coefficients, 3 numbers devided by space:")
