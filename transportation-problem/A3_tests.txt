@@ -1,0 +1,112 @@
+----------------------------------------
+		  Test1
+----------------------------------------
+
+140 180 60
+2 3 4 2
+8 4 1 4
+9 7 3 7
+60 70 120 130
+
+Expected == Output:
+
+Parameter Table of the Transportation Problem
+2          3          4          2          | 140       
+8          4          1          4          | 180       
+9          7          3          7          | 60        
+----------------------------------------
+60         70         120        130        
+
+North-west method
+result: 1180, basic solution: x00 = 2, x10 = 3, x20 = 4, x21 = 1, x31 = 4, x32 = 7
+
+Vogel's method
+result: 1000, basic solution: x00 = 60, x03 = 80, x11 = 70, x12 = 60, x13 = 50, x22 = 60
+
+Russel's method
+result: 1000, basic solution: x00 = 60, x03 = 80, x11 = 70, x12 = 60, x13 = 50, x22 = 60
+
+----------------------------------------
+		  Test2
+----------------------------------------
+
+140 180 160
+2 3 4 2
+8 4 1 4
+9 7 3 7
+60 70 120 130
+
+Expexted: 
+The problem is not balanced!
+
+Output:
+The problem is not balanced!
+
+----------------------------------------
+		  Test3
+----------------------------------------
+
+7 9 18
+19 30 50 10
+70 30 40 60
+40 8 70 20
+5 8 7 14
+
+Expected == Output:
+
+Parameter Table of the Transportation Problem
+19         30         50         10         | 7         
+70         30         40         60         | 9         
+40         8          70         20         | 18        
+----------------------------------------
+5          8          7          14         
+
+North-west method
+result: 1015, basic solution: x00 = 19, x10 = 30, x11 = 30, x21 = 40, x22 = 70, x32 = 20
+
+Vogel's method
+result: 779, basic solution: x00 = 5, x03 = 2, x12 = 7, x13 = 2, x21 = 8, x23 = 10
+
+Russel's method
+result: 807, basic solution: x00 = 5, x01 = 2, x11 = 2, x12 = 7, x21 = 4, x23 = 14
+----------------------------------------
+		  Test4
+----------------------------------------
+
+50 30 10
+1 2 4 1
+2 3 1 5
+3 2 4 4
+30 30 10 20
+
+Expected == Output:
+
+Parameter Table of the Transportation Problem
+1          2          4          1          | 50        
+2          3          1          5          | 30        
+3          2          4          4          | 10        
+----------------------------------------
+30         30         10         20         
+
+North-west method
+result: 200, basic solution: x00 = 1, x10 = 2, x11 = 3, x21 = 1, x31 = 5, x32 = 4
+
+Vogel's method
+result: 140, basic solution: x00 = 30, x03 = 20, x11 = 20, x12 = 10, x21 = 10
+
+Russel's method
+result: 140, basic solution: x00 = 30, x03 = 20, x11 = 20, x12 = 10, x21 = 10
+
+----------------------------------------
+		  Test5
+----------------------------------------
+
+-140 -180 -60
+2 3 4 2
+8 4 1 4
+9 7 3 7
+-60 -70 -120 -130
+
+Expected == Output:
+
+The method is not applicable!
